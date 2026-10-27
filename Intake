@@ -24,6 +24,7 @@ public class AllMotorsTeleOp extends LinearOpMode {
   private DcMotor lift_up;
   private Servo left_servo;
   private Servo right_servo;
+  private DcMotor Intake;
 
   @Override
   public void runOpMode() {
