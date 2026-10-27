@@ -1,5 +1,1 @@
-// ===== LIFT (5th DC motor on Expansion Hub 1) =====
-// Right trigger up, left trigger down; both released = stop
-double liftPower = gamepad1.right_trigger - gamepad1.left_trigger;
-liftPower = Range.clip(liftPower, -1.0, 1.0);
-lift_up.setPower(liftPower);
+
