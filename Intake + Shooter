@@ -26,7 +26,7 @@ public class ShooterOnlyTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
 
             // Hold right bumper to run shooter
-            if (gamepad1.right_bumper) {
+            if (gamepad2.left_bumper) {
                 shooter.setPower(0.5);
             } else {
                 shooter.setPower(0);
@@ -34,7 +34,7 @@ public class ShooterOnlyTeleOp extends LinearOpMode {
 
             telemetry.addData(
                 "Shooter Power",
-                gamepad1.right_bumper ? 0.5 : 0.0
+                gamepad2.left_bumper ? 0.5 : 0.0
             );
 
             telemetry.update();
