@@ -1,0 +1,91 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.CRServo;
+
+@TeleOp (name = "Shooter")
+public class Intake_shooter extends LinearOpMode {
+
+    private DcMotor shooter;
+    private DcMotor intake;
+    private CRServo windmill;
+
+    @Override
+    public void runOpMode() {
+
+        // Initialize shooter motor
+        shooter = hardwareMap.get(DcMotor.class, "shooter");
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        windmill = hardwareMap.get(CRServo.class, "windmill");
+
+        shooter.setDirection(DcMotor.Direction.FORWARD);
+        shooter.setPower(0);
+        
+        intake.setDirection(DcMotor.Direction.FORWARD);
+        intake.setPower(0);
+
+        windmill.setDirection(CRServo.Direction.FORWARD);
+        windmill.setPower(0);
+
+        telemetry.addLine("Intake Ready");
+        telemetry.update();
+
+        telemetry.addLine("Shooter Ready");
+        telemetry.update();
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+
+            // Hold right bumper to run shooter
+            if (gamepad1.left_bumper) {
+                shooter.setPower(0.9);
+            } else {
+                shooter.setPower(0);
+            }
+            
+            // Hold right bumper to run intake
+            if (gamepad1.right_bumper) {
+                intake.setPower(0.9);
+            } else {
+                intake.setPower(0);
+
+            // Hold A button to spin windmill
+
+            if (gamepad1.a) {
+                 windmill.setPower(0.7);
+            } else {
+                windmill.setPower(0);
+            }
+
+            }
+
+            telemetry.addData(
+                "Shooter Power",
+                gamepad2.left_bumper ? 0.5 : 0.0
+            );
+            
+            telemetry.addData(
+                "Intake Power",
+                gamepad1.right_bumper ? 0.5 : 0.0
+            );
+
+            telemetry.addData(
+                "Windmill Power",  
+                gamepad1.a ? 0.7 : 0.0  
+            );
+
+            telemetry.update();
+        }
+
+        // Stop shooter when OpMode ends
+        shooter.setPower(0);
+        // Stop intake when OpMode ends
+        intake.setPower(0);
+        // Stop windmill when OpMode ends
+        windmill.setPower(0);
+    }
+}
