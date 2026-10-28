@@ -1,0 +1,123 @@
+
+    
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.CRServo;
+
+@Autonomous(name = "Anika_Autonomous_Shoot_and_Park")
+public class AnikaHiveShootAndParkBlue extends LinearOpMode {
+
+  private DcMotor left_front;
+  private DcMotor left_back;
+  private DcMotor right_back;
+  private DcMotor right_front;
+  private DcMotor shooter;
+  private CRServo windmill;
+
+  @Override
+  public void runOpMode() {
+    double POWER;
+
+    left_front = hardwareMap.get(
+        DcMotor.class, "left_frontAsDcMotor");
+    left_back = hardwareMap.get(
+        DcMotor.class, "left_backAsDcMotor");
+    right_back = hardwareMap.get(
+        DcMotor.class, "right_backAsDcMotor");
+    right_front = hardwareMap.get(
+        DcMotor.class, "right_frontAsDcMotor");
+    shooter = hardwareMap.get(
+        DcMotor.class, "shooter");
+    windmill = hardwareMap.get(
+        CRServo.class, "windmill");
+
+    left_front.setDirection(DcMotor.Direction.REVERSE);
+    left_back.setDirection(DcMotor.Direction.REVERSE);
+    right_back.setDirection(DcMotor.Direction.FORWARD);
+    right_front.setDirection(DcMotor.Direction.FORWARD);
+
+    // Same braking settings
+    left_front.setZeroPowerBehavior(
+        DcMotor.ZeroPowerBehavior.BRAKE);
+    left_back.setZeroPowerBehavior(
+        DcMotor.ZeroPowerBehavior.BRAKE);
+    right_front.setZeroPowerBehavior(
+        DcMotor.ZeroPowerBehavior.BRAKE);
+    right_back.setZeroPowerBehavior(
+        DcMotor.ZeroPowerBehavior.BRAKE);
+
+    POWER = 0.7;
+
+    telemetry.addData("Status", "Ready - Hive Shoot and Park");
+    telemetry.update();
+
+    shooter.setPower(0);
+
+    waitForStart();
+
+    if (isStopRequested()) {
+      return;
+    }
+
+     // 1. Shoot into hive
+    shooter.setPower(0.8);
+    windmill.setPower(0.7);
+    sleep(2500);
+    // Stop windmill and shooter
+    windmill.setPower(0);
+    shooter.setPower(0);
+    sleep(500);
+
+    if (isStopRequested()) {
+      stopAll();
+      return;
+    }
+
+    // 2. Drive forward toward the hive
+    left_front.setPower(POWER);
+    left_back.setPower(POWER);
+    right_front.setPower(POWER);
+    right_back.setPower(POWER);
+    sleep(1500);
+
+    if (isStopRequested()) {
+      stopAll();
+      return;
+    }
+
+    // 3. Turn right
+    right_front.setPower(POWER);
+    right_back.setPower(POWER);
+    left_back.setPower(-POWER);
+    left_front.setPower(-POWER);
+    sleep(850);
+
+    if (isStopRequested()) {
+      stopAll();
+      return;
+    }
+
+    // 4. Drive forward toward the loading zone
+    left_front.setPower(POWER);
+    left_back.setPower(POWER);
+    right_front.setPower(POWER);
+    right_back.setPower(POWER);
+    sleep(1425);
+
+    // 5. Stop drive
+    left_front.setPower(0);
+    left_back.setPower(0);
+    right_front.setPower(0);
+    right_back.setPower(0);
+    shooter.setPower(0);
+
+    telemetry.addData("Status", "Auto done");
+    telemetry.update();
+    sleep(300);
+
+    telemetry.addData("Status", "Auto done");
+    telemetry.update();
+  }
