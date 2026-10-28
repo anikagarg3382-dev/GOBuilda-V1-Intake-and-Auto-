@@ -1,1 +1,46 @@
+package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+@TeleOp(name = "Shooter")
+public class ShooterOnlyTeleOp extends LinearOpMode {
+
+    private DcMotor shooter;
+
+    @Override
+    public void runOpMode() {
+
+        // Initialize shooter motor
+        shooter = hardwareMap.get(DcMotor.class, "shooter");
+
+        shooter.setDirection(DcMotor.Direction.FORWARD);
+        shooter.setPower(0);
+
+        telemetry.addLine("Shooter Ready");
+        telemetry.update();
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+
+            // Hold right bumper to run shooter
+            if (gamepad1.right_bumper) {
+                shooter.setPower(0.5);
+            } else {
+                shooter.setPower(0);
+            }
+
+            telemetry.addData(
+                "Shooter Power",
+                gamepad1.right_bumper ? 0.5 : 0.0
+            );
+
+            telemetry.update();
+        }
+
+        // Stop shooter when OpMode ends
+        shooter.setPower(0);
+    }
+}
