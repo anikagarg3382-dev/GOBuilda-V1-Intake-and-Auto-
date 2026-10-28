@@ -44,6 +44,8 @@ public class ShooterOnlyTeleOp extends LinearOpMode {
         shooter.setPower(0);
     }
 }
+
+
 @TeleOp(name = "Intake")
 public class IntakeOnlyTeleOp extends LinearOpMode {
 
