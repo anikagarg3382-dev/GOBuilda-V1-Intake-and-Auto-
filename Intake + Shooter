@@ -1,0 +1,45 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+@TeleOp(name = "Intake")
+public class IntakeOnlyTeleOp extends LinearOpMode {
+
+    private DcMotor intake;
+
+    @Override
+    public void runOpMode() {
+
+        // Initialize intake motor
+        intake = hardwareMap.get(DcMotor.class, "intake");
+
+        intake.setDirection(DcMotor.Direction.FORWARD);
+        intake.setPower(0);
+
+        telemetry.addLine("Intake Ready");
+        telemetry.update();
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+
+            // Hold right bumper to run intake
+            if (gamepad1.right_bumper) {
+                intake.setPower(0.5);
+            } else {
+                intake.setPower(0);
+            }
+
+            telemetry.addData(
+                "Intake Power",
+                gamepad1.right_bumper ? 0.5 : 0.0
+            );
+            telemetry.update();
+        }
+
+        // Stop intake when OpMode ends
+        intake.setPower(0);
+    }
+}
