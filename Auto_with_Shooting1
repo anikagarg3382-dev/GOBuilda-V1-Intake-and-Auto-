@@ -88,11 +88,11 @@ public class AnikaHiveShootAndParkBlue extends LinearOpMode {
       return;
     }
 
-    // 3. Turn right
-    right_front.setPower(POWER);
-    right_back.setPower(POWER);
-    left_back.setPower(-POWER);
-    left_front.setPower(-POWER);
+    // 3. Turn left
+    right_front.setPower(-POWER);
+    right_back.setPower(-POWER);
+    left_back.setPower(POWER);
+    left_front.setPower(POWER);
     sleep(850);
 
     if (isStopRequested()) {
@@ -107,7 +107,50 @@ public class AnikaHiveShootAndParkBlue extends LinearOpMode {
     right_back.setPower(POWER);
     sleep(1425);
 
-    // 5. Stop drive
+    }
+
+        // 5. Turn right
+    right_front.setPower(POWER);
+    right_back.setPower(POWER);
+    left_back.setPower(-POWER);
+    left_front.setPower(-POWER);
+    sleep(850);
+
+    if (isStopRequested()) {
+      stopAll();
+      return;
+    }
+
+    // 6. Drive forward toward the loading zone
+    left_front.setPower(POWER);
+    left_back.setPower(POWER);
+    right_front.setPower(POWER);
+    right_back.setPower(POWER);
+    sleep(1425);
+
+    }
+    // 6. Turn left
+    right_front.setPower(-POWER);
+    right_back.setPower(-POWER);
+    left_back.setPower(POWER);
+    left_front.setPower(POWER);
+    sleep(850);
+
+    if (isStopRequested()) {
+      stopAll();
+      return;
+    }
+
+    // 7. Drive forward toward the loading zone
+    left_front.setPower(POWER);
+    left_back.setPower(POWER);
+    right_front.setPower(POWER);
+    right_back.setPower(POWER);
+    sleep(1425);
+
+}
+
+    // 8. Stop drive
     left_front.setPower(0);
     left_back.setPower(0);
     right_front.setPower(0);
