@@ -27,7 +27,7 @@ public class Intake_shooter extends LinearOpMode {
         intake.setDirection(DcMotor.Direction.FORWARD);
         intake.setPower(0);
 
-        windmill.setDirection(CRServo.Direction.FORWARD);
+        windmill.setDirection(CRServo.Direction.REVERSE);
         windmill.setPower(0);
 
         telemetry.addLine("Intake Ready");
