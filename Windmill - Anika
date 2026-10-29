@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 @TeleOp(name = "WindmillTeleOp")
@@ -14,22 +14,27 @@ public class WindmillTeleOp extends LinearOpMode {
 
         windmill = hardwareMap.get(CRServo.class, "windmill");
 
-        telemetry.addData("Status", "Ready");
-        telemetry.addData("Control", "Hold right bumper to spin windmill");
+        windmill.setDirection(CRServo.Direction.REVERSE);
+
+        windmill.setPower(0);
+
+        telemetry.addLine("Windmill Ready");
+        telemetry.addLine("Hold A to spin counterclockwise");
         telemetry.update();
 
         waitForStart();
 
         while (opModeIsActive()) {
 
-            // Spin windmill if right bumper is held
-            if (gamepad1.right_bumper) {
+            // Hold A to spin the windmill
+            if (gamepad1.a) {
                 windmill.setPower(0.7);
             } else {
                 windmill.setPower(0);
             }
         }
 
+        // Stop windmill when OpMode ends
         windmill.setPower(0);
     }
 }
